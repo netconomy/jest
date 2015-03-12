@@ -345,7 +345,7 @@ TestRunner.prototype.runTest = function(testFilePath) {
       moduleLoader.getDependenciesFromPath(testFilePath)
         .filter(function(depPath) {
           // Skip over built-in and node modules
-          return /^\//.test(depPath);
+          return /^\/((?!(node_modules)).)*$/.test(depPath);
         }).forEach(function(depPath) {
           config.collectCoverageOnlyFrom[depPath] = true;
         });

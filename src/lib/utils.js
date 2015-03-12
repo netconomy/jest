@@ -47,8 +47,8 @@ function _replaceRootDirTags(rootDir, config) {
         for (var configKey in config) {
           newConfig[configKey] =
             configKey === 'rootDir'
-            ? config[configKey]
-            : _replaceRootDirTags(rootDir, config[configKey]);
+              ? config[configKey]
+              : _replaceRootDirTags(rootDir, config[configKey]);
         }
         return newConfig;
       }
@@ -196,6 +196,7 @@ function normalizeConfig(config) {
       case 'testPathIgnorePatterns':
       case 'modulePathIgnorePatterns':
       case 'unmockedModulePathPatterns':
+      case 'noCoverageForPatterns':
         // _replaceRootDirTags is specifically well-suited for substituting
         // <rootDir> in paths (it deals with properly interpreting relative path
         // separators, etc).
@@ -393,7 +394,7 @@ function formatFailureMessage(testResult, color) {
           // Extract the file path from the trace line
           var filePath = line.match(/(?:\(|at (?=\/))(.*):[0-9]+:[0-9]+\)?$/);
           if (filePath
-              && STACK_TRACE_LINE_IGNORE_RE.test(filePath[1])) {
+            && STACK_TRACE_LINE_IGNORE_RE.test(filePath[1])) {
             return false;
           }
         }
@@ -404,8 +405,8 @@ function formatFailureMessage(testResult, color) {
     }).join('\n');
 
     var testTitleAncestry = result.ancestorTitles.map(function(title) {
-      return colorize(title, colors.BOLD);
-    }).join(ancestrySeparator) + ancestrySeparator;
+        return colorize(title, colors.BOLD);
+      }).join(ancestrySeparator) + ancestrySeparator;
 
     return descBullet + testTitleAncestry + result.title + '\n' +
       failureMessages;
@@ -415,8 +416,8 @@ function formatFailureMessage(testResult, color) {
 // A RegExp that matches paths that should not be included in error stack traces
 // (mostly because these paths represent noisy/unhelpful libs)
 var STACK_TRACE_LINE_IGNORE_RE = new RegExp('^(?:' + [
-    path.resolve(__dirname, '..', 'node_modules', 'q'),
-    path.resolve(__dirname, '..', 'vendor', 'jasmine')
+  path.resolve(__dirname, '..', 'node_modules', 'q'),
+  path.resolve(__dirname, '..', 'vendor', 'jasmine')
 ].join('|') + ')');
 
 

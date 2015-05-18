@@ -326,7 +326,7 @@ function readAndPreprocessFileContent(filePath, config) {
   var mtime = fs.statSync(filePath).mtime;
   if (_contentCache.hasOwnProperty(filePath)) {
     cacheRec = _contentCache[filePath];
-    if (cacheRec.mtime === mtime) {
+    if (cacheRec.mtime.getTime() === mtime.getTime()) {
       return cacheRec.content;
     }
   }
